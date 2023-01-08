@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cvTodayAppointment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="10dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/card_background_color"
+    android:layout_marginTop="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCustomerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Customer Name : Dr Stephen Strange"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:textSize="14sp"
+                android:textColor="@color/primary_color"/>
+
+            <TextView
+                android:id="@+id/tvContactNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Contact Number : 9876543210"
+                android:fontFamily="@font/poppins_regular"
+                android:includeFontPadding="false"
+                android:layout_marginTop="5dp"
+                android:textSize="14sp"
+                android:textColor="@color/primary_text"/>
+
+            <TextView
+                android:id="@+id/tvCustomerAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address : 177A Bleecker Street, New York City, NY 10012-1406"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_marginTop="5dp"
+                android:includeFontPadding="false"
+                android:textSize="14sp"
+                android:textColor="@color/primary_text"/>
+
+
+            <TextView
+                android:id="@+id/tvProblem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Problem : AIR CONDITIONER NOT BLOWING COLD AIR"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginTop="10dp"
+                android:includeFontPadding="false"
+                android:textSize="14sp"
+                android:textColor="@color/primary_text"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_right"
+            android:layout_marginStart="10dp"
+            app:tint="@color/primary_color" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1013876493717",
+    "project_id": "ac-service-8049f",
+    "storage_bucket": "ac-service-8049f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013876493717:android:50d781a207497da93f7a9c",
+        "android_client_info": {
+          "package_name": "com.service.acservice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1013876493717-dvotqlkar2tlbjsa7dcei8s3mo05pv91.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzzx0pmYdwjSucFy9q1UYu9UsU3rSSmTU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1013876493717-dvotqlkar2tlbjsa7dcei8s3mo05pv91.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

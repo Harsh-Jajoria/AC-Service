@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">AC Service</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+    <string name="sub_title">We have sent the verification to the customers registered mobile number</string>
+
+    <!--Personal Information Strings-->
+    <string name="serial_no">SR#</string>
+    <string name="account">Account</string>
+    <string name="open_date">Open Date</string>
+    <string name="assign_date">Assign Date</string>
+    <string name="status">Status</string>
+    <string name="sub_status">Sub Status</string>
+
+    <string name="mobile">Mobile</string>
+    <string name="alt_mobile">Atl. Mobile</string>
+    <string name="email">Email</string>
+    <string name="tech_name">Tech Name</string>
+    <string name="appointment">Appointment</string>
+
+    <string name="address">Address</string>
+    <string name="area">Area</string>
+    <string name="city">City</string>
+    <string name="pin_code">Pin Code</string>
+    <string name="vip">VIP</string>
+
+    <!--Product Information-->
+    <string name="model">Model</string>
+    <string name="category">Category</string>
+    <string name="brand">Brand</string>
+    <string name="request_age">Request Age</string>
+
+    <!--Page 3 Information-->
+    <string name="serial">Serial</string>
+    <string name="serial_split">Serial Split</string>
+    <string name="tcr">TCR</string>
+    <string name="tcr_date">TCR Date</string>
+    <string name="purchased_type">Purchased Type</string>
+    <string name="purchased_from">Purchased From</string>
+    <string name="purchased_date">Purchased Date</string>
+
+    <!--Additional Material-->
+    <string name="call_type">Call Type</string>
+    <string name="additional_material">Additional Material</string>
+    <string name="fee_amount">Fee Amount</string>
+    <string name="material">Material</string>
+    <string name="rate">Rate</string>
+    <string name="quantity">Qty.</string>
+    <string name="total">Total</string>
+
+    <!--End Screen Information-->
+    <string name="closed_date">Closed Date</string>
+    <string name="remarks">Remarks</string>
+
+    <string name="select_images">Select Images</string>
+    <string name="submit">Submit</string>
+    <string name="days">Days</string>
+
+</resources>
