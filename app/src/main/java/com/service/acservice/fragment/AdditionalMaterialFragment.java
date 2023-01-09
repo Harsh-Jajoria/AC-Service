@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,17 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 import com.service.acservice.R;
 import com.service.acservice.activities.DetailsActivity;
 import com.service.acservice.adapter.AdapterMaterial;
 import com.service.acservice.databinding.FragmentAdditionalMaterialBinding;
 import com.service.acservice.listener.MaterialListener;
+import com.service.acservice.model.request.AppointmentDetailsRequest;
 import com.service.acservice.model.request.Material;
+import com.service.acservice.model.request.StepThreeRequest;
+import com.service.acservice.model.response.AppointmentDetailsResponse;
+import com.service.acservice.model.response.CommonResponse;
 import com.service.acservice.model.response.DropDownResponse;
 import com.service.acservice.network.ApiClient;
 import com.service.acservice.network.ApiService;
@@ -42,21 +48,122 @@ public class AdditionalMaterialFragment extends Fragment implements MaterialList
     private AdapterMaterial adapterMaterial;
     ArrayList<Material> materialArrayList = new ArrayList<>();
     ArrayAdapter<String> materialAdapter;
+    String id;
+
+    public AdditionalMaterialFragment(String id) {
+        this.id = id;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentAdditionalMaterialBinding.inflate(getLayoutInflater(), container, false);
+        fetchDetails();
         setListener();
         fetchDropDown();
         return binding.getRoot();
     }
 
     private void setListener() {
-        binding.fabNextPage.setOnClickListener(v -> ((DetailsActivity) requireActivity()).setPage(4));
+        binding.btnNextPage.setOnClickListener(v -> {
+            if (isValid()) {
+                submitStepThree();
+            }
+        });
         binding.swipeRefresh.setOnRefreshListener(this::fetchDropDown);
         binding.imgMaterial.setOnClickListener(v -> additionalMaterialDialog());
+    }
+
+    private void fetchDetails() {
+        binding.swipeRefresh.setRefreshing(true);
+        try {
+
+            AppointmentDetailsRequest appointmentDetailsRequest = new AppointmentDetailsRequest(id);
+
+            ApiClient.getRetrofit().create(ApiService.class).appointmentDetails(
+                    appointmentDetailsRequest
+            ).enqueue(new Callback<AppointmentDetailsResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<AppointmentDetailsResponse> call, @NonNull Response<AppointmentDetailsResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        if (response.body().code == 200) {
+                            binding.callTypeAutoComplete.setText(response.body().data.get(0).getCall_type());
+                            binding.swipeRefresh.setRefreshing(false);
+                        } else {
+                            ((DetailsActivity) requireActivity()).showToast("Something went wrong!");
+                            binding.swipeRefresh.setRefreshing(false);
+                        }
+                    } else {
+                        ((DetailsActivity) requireActivity()).showToast("Something went wrong!");
+                        binding.swipeRefresh.setRefreshing(false);
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<AppointmentDetailsResponse> call, @NonNull Throwable t) {
+                    ((DetailsActivity) requireActivity()).showToast("Failed : " + t.getMessage());
+                    binding.swipeRefresh.setRefreshing(false);
+                }
+            });
+
+        } catch (Exception e) {
+            ((DetailsActivity) requireActivity()).showToast("Error : " + e.getMessage());
+            binding.swipeRefresh.setRefreshing(false);
+        }
+    }
+
+    private void submitStepThree() {
+        isLoading(true);
+        try {
+            StepThreeRequest stepThreeRequest = new StepThreeRequest(
+                    id,
+                    binding.callTypeAutoComplete.getText().toString().trim(),
+                    binding.tvFeeAmount.getText().toString().trim(),
+                    materialArrayList);
+
+            ApiClient.getRetrofit().create(ApiService.class).submitStepThree(
+                    stepThreeRequest
+            ).enqueue(new Callback<CommonResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        if (response.body().code == 200) {
+                            ((DetailsActivity) requireActivity()).showToast(response.body().status);
+                            ((DetailsActivity) requireActivity()).setPage(4);
+                            isLoading(false);
+                        } else {
+                            ((DetailsActivity) requireActivity()).showToast(response.body().status);
+                            isLoading(false);
+                        }
+                    } else {
+                        ((DetailsActivity) requireActivity()).showToast("Something went wrong! Try again");
+                        isLoading(false);
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                    ((DetailsActivity) requireActivity()).showToast("Failed : " + t.getMessage());
+                    isLoading(false);
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            isLoading(false);
+            ((DetailsActivity) requireActivity()).showToast("Error : " + e.getMessage());
+        }
+    }
+
+    private void isLoading(Boolean isLoading) {
+        if (isLoading) {
+            binding.imgForward.setVisibility(View.GONE);
+            binding.buttonProgress.setVisibility(View.VISIBLE);
+        } else {
+            binding.imgForward.setVisibility(View.VISIBLE);
+            binding.buttonProgress.setVisibility(View.GONE);
+        }
     }
 
     private void fetchDropDown() {
@@ -183,6 +290,21 @@ public class AdditionalMaterialFragment extends Fragment implements MaterialList
         binding.tvFeeAmount.setText("" + adapterMaterial.sum(materialArrayList));
         adapterMaterial.notifyItemRemoved(position);
         addMaterial();
+    }
+
+    private Boolean isValid() {
+        if (binding.callTypeAutoComplete.getText().toString().isEmpty()) {
+            ((DetailsActivity) requireActivity()).showToast("Select call type");
+            return false;
+        } else if (materialArrayList.isEmpty()) {
+            ((DetailsActivity) requireActivity()).showToast("Add material");
+            return false;
+        } else if (binding.tvFeeAmount.getText().toString().isEmpty()) {
+            ((DetailsActivity) requireActivity()).showToast("Fee cannot be empty");
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

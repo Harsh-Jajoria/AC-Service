@@ -15,7 +15,9 @@ import com.service.acservice.R;
 import com.service.acservice.activities.DetailsActivity;
 import com.service.acservice.databinding.FragmentProductInformationBinding;
 import com.service.acservice.model.request.AppointmentDetailsRequest;
+import com.service.acservice.model.request.StepOneRequest;
 import com.service.acservice.model.response.AppointmentDetailsResponse;
+import com.service.acservice.model.response.CommonResponse;
 import com.service.acservice.model.response.DropDownResponse;
 import com.service.acservice.network.ApiClient;
 import com.service.acservice.network.ApiService;
@@ -53,15 +55,69 @@ public class ProductInformationFragment extends Fragment {
     }
 
     private void setListener() {
-        binding.fabNextPage.setOnClickListener(v -> {
+        binding.btnNextPage.setOnClickListener(v -> {
             if (isValid()) {
-                ((DetailsActivity) requireActivity()).setPage(2);
+                submitStepOne();
             }
         });
         binding.swipeRefresh.setOnRefreshListener(() -> {
             fetchDropDown();
             fetchDetails();
         });
+    }
+
+    private void isLoading(Boolean isLoading) {
+        if (isLoading) {
+            binding.imgForward.setVisibility(View.GONE);
+            binding.buttonProgress.setVisibility(View.VISIBLE);
+        } else {
+            binding.imgForward.setVisibility(View.VISIBLE);
+            binding.buttonProgress.setVisibility(View.GONE);
+        }
+    }
+
+    private void submitStepOne() {
+        isLoading(true);
+        try {
+            StepOneRequest stepOneRequest = new StepOneRequest(
+                    id,
+                    binding.tvModel.getText().toString().trim(),
+                    binding.tvCategory.getText().toString().trim(),
+                    binding.actvBrand.getText().toString().trim()
+            );
+
+            ApiClient.getRetrofit().create(ApiService.class).submitStepOne(
+                    stepOneRequest
+            ).enqueue(new Callback<CommonResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        if (response.body().code == 200) {
+                            isLoading(false);
+                            ((DetailsActivity) requireActivity()).showToast(response.body().status);
+                            ((DetailsActivity) requireActivity()).setPage(2);
+                        } else {
+                            isLoading(false);
+                            ((DetailsActivity) requireActivity()).showToast("Something went wrong! Try Again");
+                        }
+                    } else {
+                        isLoading(false);
+                        ((DetailsActivity) requireActivity()).showToast("Something went wrong! Try Again");
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                    isLoading(false);
+                    ((DetailsActivity) requireActivity()).showToast("Failed : " + t.getMessage());
+                }
+            });
+
+        } catch (Exception e) {
+            isLoading(false);
+            ((DetailsActivity) requireActivity()).showToast("Error : " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void fetchDropDown() {
@@ -118,6 +174,8 @@ public class ProductInformationFragment extends Fragment {
                     if (response.isSuccessful() && response.body() != null) {
                         if (response.body().code == 200) {
                             binding.tvModel.setText(response.body().data.get(0).getModel());
+                            binding.tvCategory.setText(response.body().data.get(0).getProduct_category());
+                            binding.actvBrand.setText(response.body().data.get(0).getBrand());
                             openDate = response.body().data.get(0).getOpen_date();
                             requestAgeCalculation();
                             binding.swipeRefresh.setRefreshing(false);

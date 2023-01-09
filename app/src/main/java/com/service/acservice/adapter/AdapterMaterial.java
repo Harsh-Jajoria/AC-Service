@@ -62,9 +62,9 @@ public class AdapterMaterial extends RecyclerView.Adapter<AdapterMaterial.Materi
 
         void setData(Material material) {
             binding.tvMaterial.setText(material.getMaterial());
-            binding.tvRate.setText(material.getRate());
+            binding.tvRate.setText(String.format("₹ %s/-", material.getRate()));
             binding.tvQty.setText(material.getQuantity());
-            binding.tvTotal.setText(material.getTotal());
+            binding.tvTotal.setText(String.format("₹ %s/-", material.getTotal()));
             binding.imgRemoveMaterial.setOnClickListener(v -> {
                 materialListener.onDeleteClicked(material, getAdapterPosition());
             });

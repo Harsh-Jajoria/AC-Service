@@ -168,6 +168,7 @@ public class TotalAppointmentFragment extends Fragment implements TodayAppointme
         btnGotoScreen.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), DetailsActivity.class);
             intent.putExtra("id", id);
+            intent.putExtra("phone", phone);
             startActivity(intent);
             bottomSheetDialog.dismiss();
         });

@@ -4,6 +4,11 @@ import com.service.acservice.model.request.AppointmentDetailsRequest;
 import com.service.acservice.model.request.CommonRequest;
 import com.service.acservice.model.request.EditDetailsRequest;
 import com.service.acservice.model.request.LoginRequest;
+import com.service.acservice.model.request.StepFiveRequest;
+import com.service.acservice.model.request.StepFourRequest;
+import com.service.acservice.model.request.StepOneRequest;
+import com.service.acservice.model.request.StepThreeRequest;
+import com.service.acservice.model.request.StepTwoRequest;
 import com.service.acservice.model.request.TodayAppointmentRequest;
 import com.service.acservice.model.response.AppointmentDetailsResponse;
 import com.service.acservice.model.response.BrandsResponse;
@@ -20,13 +25,8 @@ import com.service.acservice.model.response.StatusResponse;
 import com.service.acservice.model.response.SubStatusResponse;
 import com.service.acservice.model.response.TodayAppointmentResponse;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -73,5 +73,20 @@ public interface ApiService {
 
     @GET("dropdownlist")
     Call<DropDownResponse> getDropDown();
+
+    @POST("step1")
+    Call<CommonResponse> submitStepOne(@Body StepOneRequest stepOneRequest);
+
+    @POST("step2")
+    Call<CommonResponse> submitStepTwo(@Body StepTwoRequest stepTwoRequest);
+
+    @POST("step3")
+    Call<CommonResponse> submitStepThree(@Body StepThreeRequest stepThreeRequest);
+
+    @POST("step4")
+    Call<CommonResponse> submitStepFour(@Body StepFourRequest stepFourRequest);
+
+    @POST("step5")
+    Call<CommonResponse> submitStepFive(@Body StepFiveRequest stepFiveRequest);
 
 }

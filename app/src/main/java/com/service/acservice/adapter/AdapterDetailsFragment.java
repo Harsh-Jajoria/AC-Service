@@ -14,6 +14,7 @@ import com.service.acservice.fragment.RemarksFragment;
 
 public class AdapterDetailsFragment extends FragmentStateAdapter {
     String id;
+
     public AdapterDetailsFragment(@NonNull FragmentActivity fragmentActivity, String id) {
         super(fragmentActivity);
         this.id = id;
@@ -26,13 +27,13 @@ public class AdapterDetailsFragment extends FragmentStateAdapter {
             case 1:
                 return new ProductInformationFragment(id);
             case 2:
-                return new PurchaseInformationFragment();
+                return new PurchaseInformationFragment(id);
             case 3:
-                return new AdditionalMaterialFragment();
+                return new AdditionalMaterialFragment(id);
             case 4:
-                return new RemarksFragment();
+                return new RemarksFragment(id);
             case 5:
-                return new ImageSelectionFragment();
+                return new ImageSelectionFragment(id);
             default:
                 return new PersonalInformationFragment(id);
         }

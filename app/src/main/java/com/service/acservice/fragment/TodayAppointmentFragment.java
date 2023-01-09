@@ -24,6 +24,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 import com.service.acservice.R;
 import com.service.acservice.activities.AppointmentDetailsActivity;
+import com.service.acservice.activities.DetailsActivity;
 import com.service.acservice.activities.MainActivity;
 import com.service.acservice.adapter.AdapterTodayAppointment;
 import com.service.acservice.databinding.FragmentTodayAppointmentBinding;
@@ -159,8 +160,9 @@ public class TodayAppointmentFragment extends Fragment implements TodayAppointme
         btnCancel.setOnClickListener(v -> bottomSheetDialog.dismiss());
         assert btnGotoScreen != null;
         btnGotoScreen.setOnClickListener(v -> {
-            Intent intent = new Intent(requireActivity(), AppointmentDetailsActivity.class);
+            Intent intent = new Intent(requireActivity(), DetailsActivity.class);
             intent.putExtra("id", id);
+            intent.putExtra("phone", phone);
             startActivity(intent);
             bottomSheetDialog.dismiss();
         });

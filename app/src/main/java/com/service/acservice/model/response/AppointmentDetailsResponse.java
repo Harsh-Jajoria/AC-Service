@@ -42,6 +42,13 @@ public class AppointmentDetailsResponse {
         public String purchased_from_free;
         public String purchased_from;
         public String pincode;
+        public String brand;
+
+        public String getPurchased_type() {
+            return purchased_type;
+        }
+
+        public String purchased_type;
         public ArrayList<Attachment> attachment;
 
         public String getId() {
@@ -172,16 +179,20 @@ public class AppointmentDetailsResponse {
             return purchased_date;
         }
 
-        public String getPincode() {
-            return pincode;
-        }
-
         public String getPurchased_from_free() {
             return purchased_from_free;
         }
 
         public String getPurchased_from() {
             return purchased_from;
+        }
+
+        public String getPincode() {
+            return pincode;
+        }
+
+        public String getBrand() {
+            return brand;
         }
 
         public ArrayList<Attachment> getAttachment() {

@@ -76,7 +76,6 @@
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/poppins_regular"
                                         android:includeFontPadding="false"
-                                        android:inputType="none"
                                         android:textSize="14sp" />
 
                                 </com.google.android.material.textfield.TextInputLayout>
@@ -236,17 +235,35 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabNextPage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:id="@+id/btnNextPage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_margin="20dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_forward"
-            app:backgroundTint="@color/primary_color"
+            android:background="@drawable/button_background_ripple"
+            android:clickable="true"
+            android:elevation="10dp"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/white" />
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/imgForward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_forward"
+                android:layout_centerInParent="true"
+                app:tint="@color/white" />
+
+            <ProgressBar
+                android:id="@+id/buttonProgress"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:indeterminateTint="@color/white"
+                android:visibility="gone" />
+
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
