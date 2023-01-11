@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.Snackbar;
 import com.service.acservice.R;
 import com.service.acservice.activities.AppointmentDetailsActivity;
 import com.service.acservice.activities.DetailsActivity;
@@ -138,7 +140,11 @@ public class PendingAppointmentFragment extends Fragment implements TodayAppoint
 
     @Override
     public void onAppointmentClick(TodayAppointmentResponse.Datum appointmentModel) {
-        bottomSheet(appointmentModel.getSr_number(), appointmentModel.getRegistered_phone(), appointmentModel.getId());
+        if (appointmentModel.getStatus().equals("Closed")) {
+            Snackbar.make(binding.getRoot(), "Closed appointment can't be open.", Snackbar.LENGTH_LONG).show();
+        } else {
+            bottomSheet(appointmentModel.getSr_number(), appointmentModel.getRegistered_phone(), appointmentModel.getId());
+        }
     }
 
     private void bottomSheet(String serialNo, String phone, String id) {

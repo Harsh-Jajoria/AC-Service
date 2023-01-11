@@ -31,9 +31,9 @@ public class AdapterDetailsFragment extends FragmentStateAdapter {
             case 3:
                 return new AdditionalMaterialFragment(id);
             case 4:
-                return new RemarksFragment(id);
-            case 5:
                 return new ImageSelectionFragment(id);
+            case 5:
+                return new RemarksFragment(id);
             default:
                 return new PersonalInformationFragment(id);
         }

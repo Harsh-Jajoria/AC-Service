@@ -12,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,22 +111,31 @@ public class TodayAppointmentFragment extends Fragment implements TodayAppointme
                                     binding.swipeRefresh.setVisibility(View.VISIBLE);
                                     binding.shimmer.stopShimmer();
                                     binding.shimmer.setVisibility(View.GONE);
+                                    binding.noData.setVisibility(View.GONE);
                                 } else {
+                                    binding.shimmer.setVisibility(View.GONE);
+                                    binding.noData.setVisibility(View.VISIBLE);
                                     ((MainActivity) requireActivity()).showSnackBar("No Data Found");
                                 }
                             } else {
                                 ((MainActivity) requireActivity()).showSnackBar("Something went wrong");
+                                binding.shimmer.setVisibility(View.GONE);
+                                binding.noData.setVisibility(View.VISIBLE);
                             }
                         }
 
                         @Override
                         public void onFailure(@NonNull Call<TodayAppointmentResponse> call, @NonNull Throwable t) {
                             ((MainActivity) requireActivity()).showSnackBar("Check your internet connection");
+                            binding.shimmer.setVisibility(View.GONE);
+                            binding.noData.setVisibility(View.VISIBLE);
                         }
                     });
 
         } catch (Exception e) {
             Toast.makeText(requireActivity(), "Error : " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            binding.shimmer.setVisibility(View.GONE);
+            binding.noData.setVisibility(View.VISIBLE);
         }
     }
 
@@ -141,7 +151,12 @@ public class TodayAppointmentFragment extends Fragment implements TodayAppointme
 
     @Override
     public void onAppointmentClick(TodayAppointmentResponse.Datum appointmentModel) {
-        bottomSheet(appointmentModel.getSr_number(), appointmentModel.getRegistered_phone(), appointmentModel.getId());
+        if (appointmentModel.getStatus().equals("Closed")) {
+            Snackbar.make(binding.getRoot(), "Closed appointment can't be open.", Snackbar.LENGTH_LONG).show();
+        } else {
+            bottomSheet(appointmentModel.getSr_number(), appointmentModel.getRegistered_phone(), appointmentModel.getId());
+        }
+
     }
 
     private void bottomSheet(String serialNo, String phone, String id) {

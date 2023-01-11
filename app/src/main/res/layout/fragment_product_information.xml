@@ -180,18 +180,18 @@
                                     android:layout_height="40dp"
                                     android:layout_weight="4"
                                     android:background="@drawable/background_edit_input"
-                                    android:paddingHorizontal="8dp"
                                     android:gravity="center_vertical"
-                                    android:orientation="horizontal">
+                                    android:orientation="horizontal"
+                                    android:paddingHorizontal="8dp">
 
                                     <EditText
                                         android:id="@+id/tvRequestAge"
                                         android:layout_width="wrap_content"
                                         android:layout_height="40dp"
+                                        android:background="@null"
                                         android:fontFamily="@font/poppins_regular"
                                         android:includeFontPadding="false"
                                         android:paddingHorizontal="8dp"
-                                        android:background="@null"
                                         android:textColor="@color/primary_text"
                                         android:textColorHint="@color/secondary_text"
                                         android:textSize="14sp" />
@@ -199,10 +199,10 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginStart="4dp"
                                         android:fontFamily="@font/poppins_regular"
                                         android:includeFontPadding="false"
                                         android:text="@string/days"
-                                        android:layout_marginStart="4dp"
                                         android:textColor="@color/primary_text"
                                         android:textSize="14sp" />
 
@@ -249,8 +249,8 @@
                 android:id="@+id/imgForward"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_forward"
                 android:layout_centerInParent="true"
+                android:src="@drawable/ic_forward"
                 app:tint="@color/white" />
 
             <ProgressBar

@@ -206,24 +206,28 @@
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <RelativeLayout
-            android:id="@+id/btnNextPage"
-            android:layout_width="50dp"
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:background="@drawable/button_background_ripple"
             android:clickable="true"
-            android:elevation="10dp"
+            android:elevation="5dp"
             android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <ImageView
-                android:id="@+id/imgForward"
+            <TextView
+                android:id="@+id/btnText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_forward"
                 android:layout_centerInParent="true"
-                app:tint="@color/white" />
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:text="@string/submit"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
 
             <ProgressBar
                 android:id="@+id/buttonProgress"

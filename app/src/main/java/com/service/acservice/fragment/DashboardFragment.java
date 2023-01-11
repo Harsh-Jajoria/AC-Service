@@ -44,18 +44,10 @@ public class DashboardFragment extends Fragment {
     }
 
     private void setListener() {
-        binding.cvTodayAppointment.setOnClickListener(v -> {
-            ((MainActivity) requireActivity()).replaceFragment(new TodayAppointmentFragment());
-        });
-        binding.cvAllAppointment.setOnClickListener(v -> {
-            ((MainActivity) requireActivity()).replaceFragment(new TotalAppointmentFragment());
-        });
-        binding.cvPendingAppointment.setOnClickListener(v -> {
-            ((MainActivity) requireActivity()).replaceFragment(new PendingAppointmentFragment());
-        });
-        binding.cvCancelledAppointment.setOnClickListener(v -> {
-            ((MainActivity) requireActivity()).replaceFragment(new CancelledAppointmentFragment());
-        });
+        binding.cvTodayAppointment.setOnClickListener(v -> ((MainActivity) requireActivity()).replaceFragment(new TodayAppointmentFragment()));
+        binding.cvAllAppointment.setOnClickListener(v -> ((MainActivity) requireActivity()).replaceFragment(new TotalAppointmentFragment()));
+        binding.cvPendingAppointment.setOnClickListener(v -> ((MainActivity) requireActivity()).replaceFragment(new PendingAppointmentFragment()));
+        binding.cvCancelledAppointment.setOnClickListener(v -> ((MainActivity) requireActivity()).replaceFragment(new CancelledAppointmentFragment()));
         binding.swipeRefresh.setOnRefreshListener(() -> {
             fetchDashboardData();
             binding.swipeRefresh.setRefreshing(false);
@@ -75,6 +67,7 @@ public class DashboardFragment extends Fragment {
                                     binding.tvTodayAppointment.setText(response.body().data.getToday());
                                     binding.tvPendingAppointment.setText(response.body().data.getPending());
                                     binding.tvAllAppointment.setText(response.body().data.getTotal());
+                                    binding.tvCancelledAppointment.setText(response.body().data.getCancel());
                                     binding.shimmer.stopShimmer();
                                     binding.linearLayout.setVisibility(View.VISIBLE);
                                     binding.shimmer.setVisibility(View.GONE);

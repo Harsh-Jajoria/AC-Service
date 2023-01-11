@@ -56,6 +56,16 @@
                 android:textSize="14sp"
                 android:textColor="@color/primary_text"/>
 
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Status : Today"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_marginTop="5dp"
+                android:includeFontPadding="false"
+                android:textSize="14sp"
+                android:textColor="@color/primary_text"/>
 
             <TextView
                 android:id="@+id/tvProblem"
@@ -63,10 +73,12 @@
                 android:layout_height="wrap_content"
                 android:text="Problem : AIR CONDITIONER NOT BLOWING COLD AIR"
                 android:fontFamily="@font/poppins_medium"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:includeFontPadding="false"
                 android:textSize="14sp"
                 android:textColor="@color/primary_text"/>
+
+
 
         </LinearLayout>
 

@@ -57,6 +57,7 @@ public class AdapterTodayAppointment extends RecyclerView.Adapter<AdapterTodayAp
             binding.tvCustomerName.setText(String.format("%s : %s", "Name", todayList.getAccount()));
             binding.tvCustomerAddress.setText(String.format("%s : %s", "Address", todayList.getAddress()));
             binding.tvContactNumber.setText(String.format("%s : %s", "Contact No.", todayList.getRegistered_phone()));
+            binding.tvStatus.setText(String.format("%s : %s", "Status" , todayList.getStatus()));
             binding.tvProblem.setText(String.format("%s : %s", "Case" , ""));
             binding.getRoot().setOnClickListener(v -> todayAppointmentListener.onAppointmentClick(todayList));
         }
